@@ -1,34 +1,27 @@
-const searchInput = document.getElementById('search-input');
-const resultArtist = document.getElementById("result-artist");
-const resultPlaylist = document.getElementById('result-playlists');
+const greetingElement = document.getElementById("greeting");
+const currentHour = new Date().getHours();
 
-function requestApi(searchTerm) {
-    const url = `http://localhost:3030/artists?name_like=${searchTerm}`
-    fetch(url)
-        .then((response) => response.json())
-        .then((result) => displayResults(result))
-}
+const greetingMessage =
+    currentHour >= 5 && currentHour < 12
+        ? "Bom dia"
+        : currentHour >= 12 && currentHour < 18
+            ? "Boa tarde"
+            : "Boa noite";
 
-function displayResults(result) {
-    resultPlaylist.classList.add("hidden")
-    const artistName = document.getElementById('artist-name');
-    const artistImage = document.getElementById('artist-img');
+greetingElement.textContent = greetingMessage;
 
-    result.forEach(element => {
-        artistName.innerText = element.name;
-        artistImage.src = element.urlImg;
-    });
+// GRID INTELIGENTE
+const container = document.querySelector(".offer__list-item");
 
-    resultArtist.classList.remove('hidden');
-}
+const observer = new ResizeObserver(() => {  //mudanças no tamanho do elemento 
+    const containerWidth = container.offsetWidth; //largura total do elemento, incluindo largura do conteúdo, bordas e preenchimento.
+    const numColumns = Math.floor(containerWidth / 200); //número de colunas com base na largura do container
 
-document.addEventListener('input', function () {
-    const searchTerm = searchInput.value.toLowerCase();
-    if (searchTerm === '') {
-        resultPlaylist.classList.add('hidden');
-        resultArtist.classList.remove('hidden');
-        return
-    }
+    //largura mínima de 200px e máxima de 1fr (uma fração do espaço disponível).
+    container.style.gridTemplateColumns = `repeat(${numColumns}, minmax(200px, 1fr))`;
 
-    requestApi(searchTerm);
-})
+    console.log({ container });
+    console.log({ numColumns });
+});
+//observando a mudança do elemento
+observer.observe(container);
