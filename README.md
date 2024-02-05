@@ -17,7 +17,7 @@
 ## 💡 Aprendizados
 
 - CSS e Pseudo-classes.
-- Media Queries (Responsividade em até 1015px).
+- Media Queries (Responsividade até 1015px).
 - Manipulação do DOM.
 - **Mockado dados em JSON com json-server para simular uma API (api-artists).**
 - Consumir API com fetch.
@@ -51,7 +51,7 @@ json-server --version
 Inicie o servidor:
 
 ```
-json-server --watch api-artists/artists.json --port 3030
+json-server --watch api-artists/artists.json --port 3000
 ```
 
 E por fim, execute aplicação com **Live Server**.
